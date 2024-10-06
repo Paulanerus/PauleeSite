@@ -1,0 +1,44 @@
+---
+
+---
+
+<select class="theme-toggle bg-inherit text-lg">
+  <option value="light">Light</option>
+  <option value="dark">Dark</option>
+  <option value="system">System</option>
+</select>
+
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return "system";
+  })();
+
+  const applyTheme = (theme) => {
+    const element = document.documentElement;
+    if (theme === "light") {
+      element.classList.remove("dark");
+    } else if (theme === "dark") {
+      element.classList.add("dark");
+    } else {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        element.classList.add("dark");
+      } else {
+        element.classList.remove("dark");
+      }
+    }
+    localStorage.setItem("theme", theme);
+  };
+
+  applyTheme(theme);
+
+  const themeToggle = document.querySelector(".theme-toggle");
+  themeToggle.value = theme;
+
+  themeToggle.addEventListener("change", (event) => {
+    const selectedTheme = event.target.value;
+    applyTheme(selectedTheme);
+  });
+</script>
