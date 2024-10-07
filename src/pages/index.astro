@@ -4,11 +4,13 @@ import AboutCard from "../components/AboutCard.astro";
 ---
 
 <body
-  class="container-anim dark:bg-primary-dark bg-primary-light dark:text-primary-light text-primary-dark min-h-screen"
+  class="dark:bg-primary-dark bg-primary-light dark:text-primary-light text-primary-dark min-h-screen"
 >
-  <Navbar />
-  <div class="pt-[66px] flex flex-col gap-16">
-    <AboutCard />
+  <div class="container-anim">
+    <Navbar />
+    <div class="pt-[66px] flex flex-col gap-16">
+      <AboutCard />
+    </div>
   </div>
 </body>
 
