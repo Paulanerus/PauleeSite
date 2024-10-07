@@ -30,9 +30,10 @@ import ThemeToggle from "./ThemeToggle.astro";
     height: 1px;
     bottom: 0;
     left: 0;
-    background-color: #1a1b1f;
     transform: scaleX(0);
     transition: transform 0.18s ease;
+
+    @apply dark:bg-primary-light bg-primary-dark;
   }
 
   a:hover::before {
