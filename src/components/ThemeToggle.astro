@@ -2,43 +2,137 @@
 
 ---
 
-<select class="theme-toggle bg-inherit text-lg">
-  <option value="light">Light</option>
-  <option value="dark">Dark</option>
-  <option value="system">System</option>
-</select>
+<div class="relative inline-block text-left">
+  <button
+    type="button"
+    class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm ring-transparent dark:hover:bg-zinc-900 hover:bg-zinc-100"
+    id="menu-button"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <span id="selected-theme"></span>
+    <svg
+      class="-mr-1 h-5 w-5 dark:text-primary-light text-primary-dark transition-transform duration-200"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
+      id="menu-icon"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+
+  <div
+    class="absolute right-0 z-10 mt-2 px-1 w-56 origin-top-right rounded-md ring-1 dark:ring-zinc-800 ring-black ring-opacity-5 transition-transform ease-out duration-100 hidden opacity-0 scale-95"
+    id="menu"
+  >
+    <div class="py-1">
+      <a
+        href="#"
+        class="block px-4 py-2 text-sm rounded-md dark:hover:bg-zinc-900 hover:bg-zinc-100"
+        id="menu-item-light">Light</a
+      >
+      <a
+        href="#"
+        class="block px-4 py-2 text-sm rounded-md dark:hover:bg-zinc-900 hover:bg-zinc-100"
+        id="menu-item-dark">Dark</a
+      >
+      <a
+        href="#"
+        class="block px-4 py-2 text-sm rounded-md dark:hover:bg-zinc-900 hover:bg-zinc-100"
+        id="menu-item-system">System</a
+      >
+    </div>
+  </div>
+</div>
 
 <script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    return "system";
-  })();
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuButton = document.getElementById("menu-button");
+    const menu = document.getElementById("menu");
+    const selectedThemeSpan = document.getElementById("selected-theme");
+    const menuIcon = document.getElementById("menu-icon");
 
-  const applyTheme = (theme) => {
-    const element = document.documentElement;
-    if (theme === "light") {
-      element.classList.remove("dark");
-    } else if (theme === "dark") {
-      element.classList.add("dark");
-    } else {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        element.classList.add("dark");
+    const setTheme = (theme) => {
+      const root = document.documentElement;
+
+      if (theme === "light") {
+        root.classList.remove("dark");
+      } else if (theme === "dark") {
+        root.classList.add("dark");
       } else {
-        element.classList.remove("dark");
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        root.classList.toggle("dark", systemPrefersDark);
       }
-    }
-    localStorage.setItem("theme", theme);
-  };
 
-  applyTheme(theme);
+      localStorage.setItem("theme", theme);
+      selectedThemeSpan.textContent =
+        theme.charAt(0).toUpperCase() + theme.slice(1);
+    };
 
-  const themeToggle = document.querySelector(".theme-toggle");
-  themeToggle.value = theme;
+    const currentTheme = localStorage.getItem("theme") || "system";
+    setTheme(currentTheme);
 
-  themeToggle.addEventListener("change", (event) => {
-    const selectedTheme = event.target.value;
-    applyTheme(selectedTheme);
+    const updateThemeOnSystemChange = (e) => {
+      if (localStorage.getItem("theme") === "system") {
+        setTheme("system");
+      }
+    };
+
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", updateThemeOnSystemChange);
+
+    menuButton.addEventListener("click", () => {
+      const expanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", !expanded);
+      menu.classList.toggle("hidden");
+      menu.classList.toggle("opacity-100");
+      menu.classList.toggle("scale-100");
+      menuIcon.classList.toggle("rotate-180");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menu.classList.add("hidden");
+        menu.classList.remove("opacity-100", "scale-100");
+        menuIcon.classList.remove("rotate-180");
+      }
+    });
+
+    document
+      .getElementById("menu-item-light")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        setTheme("light");
+        closeMenu();
+      });
+
+    document.getElementById("menu-item-dark").addEventListener("click", (e) => {
+      e.preventDefault();
+      setTheme("dark");
+      closeMenu();
+    });
+
+    document
+      .getElementById("menu-item-system")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        setTheme("system");
+        closeMenu();
+      });
+
+    const closeMenu = () => {
+      menuButton.setAttribute("aria-expanded", "false");
+      menu.classList.add("hidden");
+      menu.classList.remove("opacity-100", "scale-100");
+      menuIcon.classList.remove("rotate-180");
+    };
   });
 </script>
