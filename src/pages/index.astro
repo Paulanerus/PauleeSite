@@ -2,8 +2,58 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import AboutCard from "../components/AboutCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 ---
 
 <BaseLayout title="Paul.">
   <AboutCard />
+
+  <div class="mx-auto max-w-screen-xl w-auto">
+    <p class="text-2xl mb-10">Projects</p>
+    <div class="flex space-x-3">
+      <ProjectCard
+        title="ArgParser"
+        tags={["C++", "Library", "Header-Only"]}
+        github="https://github.com/Paulanerus/ArgParser"
+      >
+        <p>
+          A simple, header-only C++17 library for parsing command line input,
+          tested on Windows and GNU/Linux. It aims to provide a straightforward
+          interface similar to tools like Cargo.
+        </p>
+      </ProjectCard>
+      <ProjectCard
+        title="Tram"
+        tags={["C++", "Build-Tool", "CLI"]}
+        github="https://github.com/Paulanerus/Tram"
+      >
+        <p>
+          A compact C/C++ build configuration tool with an integrated dependency
+          manager, aiming to simplify the build process with minimal code and
+          configuration. It is currently under development.
+        </p>
+      </ProjectCard>
+      <ProjectCard
+        title="Okane"
+        tags={["C++", "Finance-Tool", "CLI"]}
+        github="https://github.com/Paulanerus/Okane"
+      >
+        <p>
+          CLI tool for organizing personal finances, supporting platforms like
+          Windows and GNU/Linux. It allows users to add incomes, expenses, and
+          view financial summaries.
+        </p>
+      </ProjectCard>
+      <ProjectCard
+        title="PauleeSite"
+        tags={["Astro", "TailwindCSS"]}
+        github="https://github.com/Paulanerus/PauleeSite"
+      >
+        <p>
+          PauleeSite is the source code for paulee.dev, showcasing personal
+          projects and information.
+        </p>
+      </ProjectCard>
+    </div>
+  </div>
 </BaseLayout>
