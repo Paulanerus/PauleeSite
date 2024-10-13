@@ -1,0 +1,41 @@
+---
+import Navbar from "../components/Navbar.astro";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body
+    class="dark:bg-primary-dark bg-primary-light dark:text-primary-light text-primary-dark min-h-screen antialiased"
+  >
+    <div class="anim">
+      <Navbar />
+      <div class="pt-[66px] flex flex-col gap-16">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  .anim {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
