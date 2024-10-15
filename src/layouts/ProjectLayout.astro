@@ -1,0 +1,9 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const { caption } = Astro.props;
+---
+
+<BaseLayout title={caption}>
+  <p class="text-5xl flex justify-center">{caption}</p>
+</BaseLayout>
