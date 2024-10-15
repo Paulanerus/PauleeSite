@@ -26,7 +26,7 @@
   </button>
 
   <div
-    class="absolute right-0 z-10 mt-2 px-1 w-56 origin-top-right rounded-md ring-1 bg-primary-light dark:bg-primary-dark dark:ring-zinc-800 ring-primary-dark ring-opacity-5 shadow-md transition-transform ease-out duration-100 hidden opacity-0 scale-95"
+    class="absolute right-0 z-10 mt-2 px-1 w-56 origin-top-right rounded-md ring-1 bg-primary-light dark:bg-primary-dark dark:ring-zinc-800 ring-primary-dark ring-opacity-5 shadow-md transition ease-out duration-100 hidden opacity-0 scale-95"
     id="menu"
   >
     <div class="py-1">
@@ -50,60 +50,48 @@
 </div>
 
 <script is:inline>
+  const setTheme = (theme, doc = document) => {
+    const root = doc.documentElement;
+    localStorage.setItem("theme", theme);
+
+    if (theme === "light") {
+      root.classList.remove("dark");
+    } else if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      const systemPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      root.classList.toggle("dark", systemPrefersDark);
+    }
+
+    const selectedThemeSpan = document.getElementById("selected-theme");
+    selectedThemeSpan.textContent =
+      theme.charAt(0).toUpperCase() + theme.slice(1);
+  };
+
+  const getCurrentTheme = () => localStorage.getItem("theme") || "system";
+
   document.addEventListener("DOMContentLoaded", () => {
     const menuButton = document.getElementById("menu-button");
     const menu = document.getElementById("menu");
-    const selectedThemeSpan = document.getElementById("selected-theme");
     const menuIcon = document.getElementById("menu-icon");
 
-    const setTheme = (theme) => {
-      const root = document.documentElement;
-
-      if (theme === "light") {
-        root.classList.remove("dark");
-      } else if (theme === "dark") {
-        root.classList.add("dark");
-      } else {
-        const systemPrefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        root.classList.toggle("dark", systemPrefersDark);
-      }
-
-      localStorage.setItem("theme", theme);
-      selectedThemeSpan.textContent =
-        theme.charAt(0).toUpperCase() + theme.slice(1);
-    };
-
-    const currentTheme = localStorage.getItem("theme") || "system";
-    setTheme(currentTheme);
-
-    const updateThemeOnSystemChange = (e) => {
-      if (localStorage.getItem("theme") === "system") {
-        setTheme("system");
-      }
-    };
+    setTheme(getCurrentTheme());
 
     window
       .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", updateThemeOnSystemChange);
+      .addEventListener("change", () => {
+        if (getCurrentTheme() === "system") setTheme("system");
+      });
 
     menuButton.addEventListener("click", () => {
-      const expanded = menuButton.getAttribute("aria-expanded") === "true";
-      menuButton.setAttribute("aria-expanded", !expanded);
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", !isOpen);
       menu.classList.toggle("hidden");
       menu.classList.toggle("opacity-100");
       menu.classList.toggle("scale-100");
       menuIcon.classList.toggle("rotate-180");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
-        menuButton.setAttribute("aria-expanded", "false");
-        menu.classList.add("hidden");
-        menu.classList.remove("opacity-100", "scale-100");
-        menuIcon.classList.remove("rotate-180");
-      }
     });
 
     document
@@ -113,13 +101,11 @@
         setTheme("light");
         closeMenu();
       });
-
     document.getElementById("menu-item-dark").addEventListener("click", (e) => {
       e.preventDefault();
       setTheme("dark");
       closeMenu();
     });
-
     document
       .getElementById("menu-item-system")
       .addEventListener("click", (e) => {
@@ -128,11 +114,21 @@
         closeMenu();
       });
 
+    document.addEventListener("click", (e) => {
+      if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
     const closeMenu = () => {
       menuButton.setAttribute("aria-expanded", "false");
       menu.classList.add("hidden");
       menu.classList.remove("opacity-100", "scale-100");
       menuIcon.classList.remove("rotate-180");
     };
+  });
+
+  document.addEventListener("astro:before-swap", (event) => {
+    setTheme(getCurrentTheme(), event.newDocument);
   });
 </script>
