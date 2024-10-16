@@ -5,5 +5,16 @@ const { caption } = Astro.props;
 ---
 
 <BaseLayout title={caption}>
-  <p class="text-5xl flex justify-center">{caption}</p>
+  <div class="flex flex-col">
+    <section>
+      <p class="text-5xl text-center">{caption}</p>
+      <section class="mt-4 opacity-75 text-center text-xl">
+        <slot name="desc" />
+      </section>
+
+      <section class="mx-10 my-14 md:mx-auto md:max-w-3xl text-xl text-balance">
+        <slot name="article" />
+      </section>
+    </section>
+  </div>
 </BaseLayout>
