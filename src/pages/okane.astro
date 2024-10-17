@@ -1,7 +1,9 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectLayout from "../layouts/ProjectLayout.astro";
 ---
 
-<BaseLayout title="Okane">
-  <p class="text-4xl flex justify-center">Okane</p>
-</BaseLayout>
+<ProjectLayout caption="Okane" url="https://github.com/Paulanerus/Okane">
+  <p slot="desc">
+    A tiny, command-line-based tool to organize personal finances.
+  </p>
+</ProjectLayout>

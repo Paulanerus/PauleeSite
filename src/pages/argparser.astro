@@ -1,7 +1,83 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectLayout from "../layouts/ProjectLayout.astro";
+
+import Paragraph from "../components/Paragraph.astro";
+import CodeExample from "../components/CodeExample.astro";
+import InlineLink from "../components/InlineLink.astro";
+
+const exampleCode1 = `
+psap::ArgParser parser{
+    psap::ParserConf{
+        "project_name", 4, true, true, psap::ValueStyle::Both, psap::UnknownOptionPolicy::ReportRemove}};
+
+auto HELP_ACTION = 
+    [](const psap::ArgParser &parser, const psap::Command &cmd)
+    {
+        parser(parser[0]);
+    }
+
+parser.command("help", "h")
+    .help("Shows help.")
+    .action(HELP_ACTION);
+
+parser.parse(argv, argc);`;
+
+const exampleCode2 = `
+psap::ArgParser parser{
+        psap::ParserConf{"project_name", 4, true, true, psap::ValueStyle::Both, psap::UnknownOptionPolicy::ReportRemove}};
+
+    auto RUN_ACTION = 
+        [](const psap::ArgParser &parser, const psap::Command &cmd)
+        {
+            //Run action...
+        }
+
+    parser.command("run", "r")
+        .help("Runs something.")
+        .option(psap::make_value("--target", "-t", "Select a Target."))
+        .option(psap::make_flag("--debug", "-d", "Runs in debug."))
+        .action(RUN_ACTION);
+
+    parser.parse(argv, argc);
+`;
 ---
 
-<BaseLayout title="ArgParser">
-  <p class="text-4xl flex justify-center">ArgParser</p>
-</BaseLayout>
+<ProjectLayout
+  caption="ArgParser"
+  url="https://github.com/Paulanerus/ArgParser"
+>
+  <p slot="desc">
+    A library for parsing arguments with support for command-like input.
+  </p>
+
+  <article slot="article" class="flex flex-col gap-20">
+    <Paragraph headline="Introduction">
+      ArgParser originated as a testing project for <InlineLink
+        url="/tram"
+        text="Tram"
+      /> and was subsequently released as a header-only C++17 library. Its purpose
+      is to efficiently parse command-line arguments. It has a minimal code base
+      and no external dependencies, and it offers features such as automatic help
+      page generation, terminal color support, and compatibility across all modern
+      compilers.
+    </Paragraph>
+    <Paragraph headline="Examples">
+      TODO
+
+      <CodeExample
+        id="ap-example-1"
+        code={exampleCode1}
+        desc="Example 1: Sample code for the 'help' command, which prints the help page when called."
+      />
+
+      TODO
+
+      <CodeExample
+        id="ap-example-2"
+        code={exampleCode2}
+        desc="Example 2: Sample code for the 'run' command with a flag and value configured."
+      />
+    </Paragraph>
+    <Paragraph headline="In depth"> TODO </Paragraph>
+  </article>
+</ProjectLayout>
