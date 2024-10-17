@@ -4,5 +4,7 @@ const { headline } = Astro.props;
 
 <div>
   <p class="text-3xl mb-8">{headline}</p>
-  <slot />
+  <div class="text-lg text-pretty">
+    <slot />
+  </div>
 </div>
