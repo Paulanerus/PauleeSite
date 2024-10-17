@@ -1,0 +1,30 @@
+---
+import { Code } from "astro:components";
+
+import type {
+  BuiltinLanguage,
+  LanguageRegistration,
+  SpecialLanguage,
+} from "shiki";
+
+interface Props {
+  id: string;
+  lang?: BuiltinLanguage | SpecialLanguage | LanguageRegistration;
+  code: string;
+  desc?: string;
+}
+
+const { id, lang = "c++", code, desc } = Astro.props;
+---
+
+<div>
+  <Code
+    id={id}
+    class="rounded-md text-xs md:text-sm md:mx-3 mt-3 mb-2 p-2"
+    theme="vitesse-dark"
+    code={code}
+    lang={lang}
+    wrap={true}
+  />
+  <p class="opacity-75 text-center text-sm mdtext-base">{desc}</p>
+</div>
