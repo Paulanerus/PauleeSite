@@ -5,8 +5,7 @@ import Paragraph from "../components/Paragraph.astro";
 import CodeExample from "../components/CodeExample.astro";
 import InlineLink from "../components/InlineLink.astro";
 
-const exampleCode1 = `
-psap::ArgParser parser{
+const exampleCode1 = `psap::ArgParser parser{
     psap::ParserConf{
         "project_name", 4, true, true, psap::ValueStyle::Both, psap::UnknownOptionPolicy::ReportRemove}};
 
@@ -22,23 +21,22 @@ parser.command("help", "h")
 
 parser.parse(argv, argc);`;
 
-const exampleCode2 = `
-psap::ArgParser parser{
+const exampleCode2 = `psap::ArgParser parser{
         psap::ParserConf{"project_name", 4, true, true, psap::ValueStyle::Both, psap::UnknownOptionPolicy::ReportRemove}};
 
-    auto RUN_ACTION = 
-        [](const psap::ArgParser &parser, const psap::Command &cmd)
-        {
-            //Run action...
-        }
+auto RUN_ACTION = 
+    [](const psap::ArgParser &parser, const psap::Command &cmd)
+    {
+        //Run action...
+    }
 
-    parser.command("run", "r")
-        .help("Runs something.")
-        .option(psap::make_value("--target", "-t", "Select a Target."))
-        .option(psap::make_flag("--debug", "-d", "Runs in debug."))
-        .action(RUN_ACTION);
+parser.command("run", "r")
+    .help("Runs something.")
+    .option(psap::make_value("--target", "-t", "Select a Target."))
+    .option(psap::make_flag("--debug", "-d", "Runs in debug."))
+    .action(RUN_ACTION);
 
-    parser.parse(argv, argc);
+parser.parse(argv, argc);
 `;
 ---
 
