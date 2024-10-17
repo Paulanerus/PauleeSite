@@ -1,20 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const { caption } = Astro.props;
+import LinkIcon from "../components/icons/LinkIcon.astro";
+
+const { caption, url } = Astro.props;
 ---
 
 <BaseLayout title={caption}>
   <div class="flex flex-col">
-    <section>
-      <p class="text-5xl text-center">{caption}</p>
-      <section class="mt-4 opacity-75 text-center text-xl text-balance">
-        <slot name="desc" />
-      </section>
-
-      <section class="mx-10 my-14 md:mx-auto md:max-w-3xl text-xl text-balance">
-        <slot name="article" />
-      </section>
+    <p class="text-5xl text-center">{caption}</p>
+    <section class="mt-4 opacity-75 text-center text-xl text-balance">
+      <slot name="desc" />
     </section>
+
+    <section class="mx-10 mt-14 md:mx-auto md:max-w-3xl text-xl text-balance">
+      <slot name="article" />
+    </section>
+    <div
+      class="rounded-md px-3 py-2 mx-auto my-14 bg-primary-dark dark:bg-primary-light text-primary-light dark:text-primary-dark flex items-center space-x-2 md:hover:-translate-y-1 transition ease-in-out duration-200"
+    >
+      <a href={url} target="_blank">Visit on GitHub</a>
+      <LinkIcon />
+    </div>
   </div>
 </BaseLayout>
