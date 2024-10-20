@@ -2,12 +2,14 @@
 interface Props {
   url: string;
   text: string;
+  target?: string;
 }
 
-const { url, text } = Astro.props;
+const { url, text, target = "" } = Astro.props;
 ---
 
 <a
+  target={target}
   href={url}
   class="underline underline-offset-2 decoration-primary-dark dark:decoration-primary-light md:decoration-zinc-500 dark:md:decoration-zinc-400 md:hover:decoration-primary-dark dark:md:hover:decoration-primary-light md:hover:transition-colors ease-in-out duration-100"
   >{text}</a
