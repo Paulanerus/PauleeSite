@@ -1,9 +1,93 @@
 ---
 import ProjectLayout from "../layouts/ProjectLayout.astro";
+
+import Paragraph from "../components/Paragraph.astro";
+import InlineLink from "../components/InlineLink.astro";
+import Highlight from "../components/Highlight.astro";
+import CodeExample from "../components/CodeExample.astro";
+
+const exampleOutput = `+------------------------+
+| Category | Amount      |
+| Income   | 2344.00 €   |
+| Abos     | -23.56 €    |
+| Expenses | -123.00 €   |
+| Balance  | 2197.44 €   |
++------------------------+`;
 ---
 
 <ProjectLayout caption="Okane" url="https://github.com/Paulanerus/Okane">
   <p slot="desc">
     A tiny, command-line-based tool to organize personal finances.
   </p>
+
+  <article slot="article" class="flex flex-col gap-20">
+    <Paragraph headline="Introduction">
+      Okane is a lightweight and command-line-based tool designed to easily
+      organize personal finances on both Windows and Linux platforms. It allows
+      users to add income or expenses with customizable tags, set up recurring
+      payments, and choose between a simple or detailed view.
+    </Paragraph>
+
+    <Paragraph headline="Usage">
+      <section class="mb-12">
+        <p class="text-xl mb-4">Basics</p>
+        <p>
+          New entries can be added using the <Highlight text="add" /> or <Highlight
+            text="abo"
+          /> command. For these it is necessary to provide an amount and tag, with
+          an optional date value, which is the current date by default. For abos
+          there is an extra 'interval' option which can be either monthly (0, monthly,
+          month) or yearly (1, 01, yearly, year).
+        </p>
+
+        <br />
+
+        <p>
+          The <Highlight text="remove" /> command can be used delete an entry by
+          its index, which can be obtained through the
+          <Highlight text="detailed" /> command. A month and year may be provided
+          for additional context.
+        </p>
+      </section>
+
+      <section class="mb-12">
+        <p class="text-xl mb-4">Visualization</p>
+        <p>
+          To have an overview of the current financial state, the <Highlight
+            text="status"
+          /> command gives a quick summary of all entries. A month any year can be
+          provided as well.
+        </p>
+
+        <div class="mx-auto w-fit">
+          <CodeExample
+            id="o-example-1"
+            lang="text"
+            code={exampleOutput}
+            desc="Example output for 'okane status'."
+          />
+        </div>
+
+        <p>
+          For a more in depth view, the <Highlight text="detailed" /> command presents
+          a comprehensive list of entries, including the index and date, as well
+          as the tag. A month and year may be provided.
+        </p>
+      </section>
+
+      <p>Type 'okane help' for additional information.</p>
+    </Paragraph>
+
+    <Paragraph headline="Installation">
+      Okane is currently only available through Winget (<InlineLink
+        target="_blank"
+        url="https://github.com/microsoft/winget-pkgs/tree/master/manifests/p/Paulanerus/Okane"
+        text="Paulanerus.Okane"
+      />) on Windows and as a AUR-Package (<InlineLink
+        target="_blank"
+        url="https://aur.archlinux.org/packages/okane"
+        text="okane"
+      />) on Arch Linux. It will be available on more platforms soon.
+    </Paragraph>
+  </article>
 </ProjectLayout>

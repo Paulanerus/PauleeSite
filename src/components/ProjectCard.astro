@@ -6,14 +6,15 @@ interface Props {
   tags?: string[];
   url: string;
   gradient: string;
+  target?: string;
 }
 
-const { title, tags = [], url, gradient, ...props } = Astro.props;
+const { title, tags = [], url, gradient, target = "" } = Astro.props;
 ---
 
 <a
   href={url}
-  {...props}
+  target={target}
   class={`rounded-md w-72 min-w-72 h-96 p-[1.1px] ${gradient} no-underline md:hover:-translate-y-2 transition ease-in-out duration-300`}
 >
   <div
