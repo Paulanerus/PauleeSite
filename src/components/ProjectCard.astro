@@ -1,6 +1,13 @@
 ---
 import LinkIcon from "./icons/LinkIcon.astro";
 
+interface Props {
+  title: string;
+  tags?: string[];
+  url: string;
+  gradient: string;
+}
+
 const { title, tags = [], url, gradient, ...props } = Astro.props;
 ---
 

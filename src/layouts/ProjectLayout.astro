@@ -3,6 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 import LinkIcon from "../components/icons/LinkIcon.astro";
 
+interface Props {
+  caption: string;
+  url: string;
+}
+
 const { caption, url } = Astro.props;
 ---
 
