@@ -14,10 +14,10 @@ import ThemeToggle from "./ThemeToggle.astro";
   >
     <a
       href="https://github.com/Paulanerus"
-      class="relative link text-base md:text-lg"
+      class="relative link text-base md:text-lg dark:before:bg-primary-light before:bg-primary-dark"
       target="_blank">GitHub</a
     >
-    <a class="relative link text-base md:text-lg">Mail</a>
+    <a class="relative link text-base md:text-lg dark:before:bg-primary-light before:bg-primary-dark">Mail</a>
   </div>
 
   <div class="pr-4 z-20">
@@ -36,8 +36,6 @@ import ThemeToggle from "./ThemeToggle.astro";
     left: 0;
     transform: scaleX(0);
     transition: transform 0.18s ease;
-
-    @apply dark:bg-primary-light bg-primary-dark;
   }
 
   .link:hover::before {
