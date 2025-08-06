@@ -1,0 +1,38 @@
+---
+import ProjectLayout from "../layouts/ProjectLayout.astro";
+import Paragraph from "../components/Paragraph.astro";
+import InlineLink from "../components/InlineLink.astro";
+---
+
+<ProjectLayout
+  caption="TextVariantExplorer"
+  url="https://github.com/Paulanerus/TextExplorer"
+>
+  <p slot="desc">
+    An open-source, cross-platform tool designed for the exploration and
+    comparison of text variants, making it easier to analyze differences and
+    similarities in textual data.
+  </p>
+
+  <article slot="article" class="flex flex-col gap-20">
+    <Paragraph headline="Overview"> TODO </Paragraph>
+
+    <Paragraph headline="Documentation">
+      The documentation is available on Read the Docs. You can access it
+      <InlineLink
+        target="_blank"
+        url="https://textvariantexplorer.readthedocs.io/en/latest/"
+        text="here"
+      />.
+    </Paragraph>
+
+    <Paragraph headline="Citation">
+      If you use TextExplorer in your research, please cite it using the
+      information provided in the <InlineLink
+        target="_blank"
+        url="https://github.com/Paulanerus/TextExplorer/blob/master/CITATION.cff"
+        text="CITATION.cff"
+      /> file.
+    </Paragraph>
+  </article>
+</ProjectLayout>
