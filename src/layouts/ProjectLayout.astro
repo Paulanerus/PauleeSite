@@ -13,7 +13,7 @@ const { caption, url } = Astro.props;
 
 <BaseLayout title={caption}>
   <div class="flex flex-col">
-    <p class="text-5xl text-center">{caption}</p>
+    <p class="text-4xl md:text-5xl text-center">{caption}</p>
     <section class="mt-4 opacity-75 text-center text-xl text-balance">
       <slot name="desc" />
     </section>
