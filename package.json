@@ -2,9 +2,9 @@
   "name": "pauleesite",
   "version": "0.0.1",
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.12",
-    "astro": "5.13.2",
-    "tailwindcss": "^4.1.12"
+    "@tailwindcss/vite": "^4.1.13",
+    "astro": "5.13.7",
+    "tailwindcss": "^4.1.13"
   },
   "scripts": {
     "dev": "astro dev",
