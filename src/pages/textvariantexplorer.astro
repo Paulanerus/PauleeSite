@@ -2,37 +2,43 @@
 import ProjectLayout from "../layouts/ProjectLayout.astro";
 import Paragraph from "../components/Paragraph.astro";
 import InlineLink from "../components/InlineLink.astro";
+
+import bannerTVE from "../images/manuscripts.png";
 ---
 
 <ProjectLayout
-  caption="TextVariant Explorer"
-  url="https://github.com/Paulanerus/TextExplorer"
+    caption="TextVariant Explorer"
+    url="https://github.com/Paulanerus/TextExplorer"
+    banner={bannerTVE}
+    bannerAlt="Two hands move carefully across weathered manuscripts, tracing words preserved through time. The image evokes scholarship, memory, and the fragile transmission of knowledge from one generation to the next."
 >
-  <p slot="desc">
-    An open-source, cross-platform tool designed for the exploration and
-    comparison of text variants, making it easier to analyze differences and
-    similarities in textual data.
-  </p>
+    <p slot="desc">
+        An open-source, cross-platform tool designed for the exploration and
+        comparison of text variants, making it easier to analyze differences and
+        similarities in textual data.
+    </p>
 
-  <article slot="article" class="flex flex-col gap-20">
-    <Paragraph headline="Overview"> TODO </Paragraph>
+    <article slot="article" class="flex flex-col gap-20">
+        <Paragraph headline="Overview"> TODO </Paragraph>
 
-    <Paragraph headline="Documentation">
-      The documentation is available on Read the Docs. You can access it
-      <InlineLink
-        target="_blank"
-        url="https://textvariantexplorer.readthedocs.io/en/latest/"
-        text="here"
-      />.
-    </Paragraph>
+        <Paragraph headline="Related Work"> Coming soon. </Paragraph>
 
-    <Paragraph headline="Citation">
-      If you use TextExplorer in your research, please cite it using the
-      information provided in the <InlineLink
-        target="_blank"
-        url="https://github.com/Paulanerus/TextExplorer/blob/master/CITATION.cff"
-        text="CITATION.cff"
-      /> file.
-    </Paragraph>
-  </article>
+        <Paragraph headline="Documentation">
+            The documentation is available on Read the Docs. You can access it
+            <InlineLink
+                target="_blank"
+                url="https://textvariantexplorer.readthedocs.io/en/latest/"
+                text="here"
+            />.
+        </Paragraph>
+
+        <Paragraph headline="Citation">
+            If you use TextExplorer in your research, please cite it using the
+            information provided in the <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/TextExplorer/blob/master/CITATION.cff"
+                text="CITATION.cff"
+            /> file.
+        </Paragraph>
+    </article>
 </ProjectLayout>
