@@ -1,0 +1,121 @@
+---
+import ProjectLayout from "../layouts/ProjectLayout.astro";
+import Paragraph from "../components/Paragraph.astro";
+import InlineLink from "../components/InlineLink.astro";
+---
+
+<ProjectLayout
+    caption="Ancient Greek Variant SBERTs"
+>
+    <p slot="desc">
+        A foundation for deeper understanding of Ancient Greek biblical verses,
+        where meaning and variation can be traced with care.
+    </p>
+
+    <article slot="article" class="flex flex-col gap-20">
+        <Paragraph headline="Overview">
+            This project explores sentence-transformer embeddings for Ancient Greek
+            biblical verses, aimed at semantic similarity, clustering, and search.
+            The Variant SBERT builds on <InlineLink
+                target="_blank"
+                url="https://huggingface.co/pranaydeeps/Ancient-Greek-BERT"
+                text="Ancient-Greek-BERT"
+            />, and the S3BERT variant is built on top of the Variant SBERT while
+            maintaining similar overall sentence-embedding performance, with a
+            sub-embedding dedicated to gender similarity.
+        </Paragraph>
+
+        <Paragraph headline="Ancient Greek Variant SBERT">
+            The first model, <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/AncientGreekVariantSB"
+                text="AncientGreekVariantSB"
+            />, is a classic SBERT-style encoder trained with Multiple Negatives
+            Ranking Loss for verse-level similarity, clustering, and search. It
+            maps verses into a 768-dimensional space and performs well on variant
+            detection, semantic clustering, and semantic search, while remaining
+            robust to spelling variations in biblical Greek. The released checkpoint
+            is hosted on <InlineLink
+                target="_blank"
+                url="https://huggingface.co/Paulanerus/AncientGreekVariantSBERT"
+                text="Hugging Face"
+            /> and is available in <InlineLink
+                url="/textvariantexplorer"
+                text="TextVariant Explorer"
+            />.
+        </Paragraph>
+
+
+        <Paragraph headline="Ancient Greek Variant S3BERT (Gender)">
+            The second model, <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/AncientGreekS3Bert"
+                text="AncientGreekS3Bert"
+            />, follows the S3BERT approach, reserving a small feature subspace for
+            a targeted, interpretable signal while preserving overall similarity
+            behavior. It distills from the Variant SBERT and exposes a global
+            similarity score alongside a dedicated gender sub-embedding, reflecting
+            the S3BERT idea of fixed, interpretable subspaces. There is no model
+            release yet, but results can be reproduced from the repository.
+        </Paragraph>
+
+        <Paragraph headline="Training Data">
+            The dataset is the foundation for both models and is derived from the
+            Ancient Greek New Testament corpora on
+            <InlineLink
+                target="_blank"
+                url="https://zenodo.org/records/15789063"
+                text="Zenodo"
+            />. The dataset supports distant-reading analyses of omission, addition,
+            and other textual variations by providing a corpus of biblical names
+            with spelling variation and inflections, alongside their manuscript
+            mentions. The Variant SBERT groups verses by NKV identifiers for
+            similarity training (see <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/AncientGreekVariantSB/blob/master/src/prepare.py"
+                text="prepare.py"
+            /> and <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/AncientGreekVariantSB/blob/master/src/train.py"
+                text="train.py"
+            />), and the S3BERT gender score is derived from gender annotations in
+            the dataset's word lists (see <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/AncientGreekS3Bert/blob/master/src/prepare.py"
+                text="prepare.py"
+            /> and <InlineLink
+                target="_blank"
+                url="https://github.com/Paulanerus/AncientGreekS3Bert/blob/master/src/train.py"
+                text="train.py"
+            />). Both models were trained on a single NVIDIA A100 80GB PCIe.
+        </Paragraph>
+
+        <Paragraph headline="Future Work">
+            The S3BERT model is experimental and serves as a proof of concept for
+            S3BERT-style interpretability in biblical verse embeddings. Future work
+            could focus on a better gender score to improve supervision of the
+            feature sub-embeddings and on adding additional feature vectors beyond
+            gender, such as sentiment.
+        </Paragraph>
+
+        <Paragraph headline="Related Work">
+            See the original <InlineLink
+                target="_blank"
+                url="https://github.com/flipz357/S3BERT"
+                text="S3BERT implementation"
+            />, the <InlineLink
+                target="_blank"
+                url="https://arxiv.org/abs/2206.07023"
+                text="S3BERT paper"
+            />, the underlying <InlineLink
+                target="_blank"
+                url="https://zenodo.org/records/15789063"
+                text="dataset release"
+            />, and the base <InlineLink
+                target="_blank"
+                url="https://huggingface.co/pranaydeeps/Ancient-Greek-BERT"
+                text="Ancient-Greek-BERT"
+            /> model.
+        </Paragraph>
+    </article>
+</ProjectLayout>
