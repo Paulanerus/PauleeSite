@@ -2,60 +2,75 @@
 import ProjectCard from "../ProjectCard.astro";
 ---
 
-<div class="mx-auto max-w-screen-xl">
-  <p class="text-2xl md:ml-4 mb-2 text-center md:text-left">Projects</p>
-  <div
-    class="mx-auto md:mx-0 md:mr-auto w-1/3 h-px mb-10 bg-primary-dark dark:bg-primary-light"
-  >
-  </div>
-  <div class="ml-4 flex flex-wrap gap-3 justify-center">
-    <ProjectCard
-      title="ArgParser"
-      tags={["C++", "Library", "Header-Only"]}
-      url="/argparser"
-      gradient="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500"
-    >
-      <p>
-        A simple, header-only C++17 library for parsing command line input,
-        tested on Windows and GNU/Linux. It aims to provide a straightforward
-        interface similar to tools like Cargo.
-      </p>
-    </ProjectCard>
-    <ProjectCard
-      title="TextVariant Explorer"
-      tags={["Kotlin", "Text-Analysis", "GUI"]}
-      url="/textvariantexplorer"
-      gradient="bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500"
-    >
-      <p>
-        TextVariant Explorer is a free and open-source desktop GUI application for
-        exploring, analyzing, and comparing text variants. It supports custom
-        plugins for tailored use.
-      </p>
-    </ProjectCard>
-    <ProjectCard
-      title="Okane"
-      tags={["C++", "Finance-Tool", "CLI"]}
-      url="/okane"
-      gradient="bg-gradient-to-bl from-yellow-400 via-orange-500 to-red-500"
-    >
-      <p>
-        CLI tool for organizing personal finances, supporting platforms like
-        Windows and GNU/Linux. It allows users to add incomes, expenses, and
-        view financial summaries.
-      </p>
-    </ProjectCard>
-    <ProjectCard
-      title="Tram"
-      tags={["C++", "Build-Tool", "CLI"]}
-      url="/tram"
-      gradient="bg-gradient-to-tl from-green-400 via-blue-500 to-purple-500"
-    >
-      <p>
-        A compact C/C++ build configuration tool with an integrated dependency
-        manager, aiming to simplify the build process with minimal code and
-        configuration. It is currently under development.
-      </p>
-    </ProjectCard>
-  </div>
-</div>
+<section class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12">
+        <h2 class="text-3xl font-light mb-2">Projects</h2>
+        <div class="w-20 h-px bg-zinc-300 dark:bg-zinc-700"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ProjectCard
+            title="TextVariant Explorer"
+            tags={["Kotlin", "Text-Analysis", "GUI"]}
+            url="/textvariantexplorer"
+        >
+            <p>
+                TextVariant Explorer is a free and open-source desktop GUI
+                application for exploring, analyzing, and comparing text
+                variants. It supports custom plugins for tailored use.
+            </p>
+        </ProjectCard>
+
+        <ProjectCard
+            title="Ancient Greek Variant SBERTs"
+            tags={["NLP", "Embeddings", "Ancient Greek"]}
+            url="/greekberts"
+        >
+            <p>
+                Sentence-embedding models for Ancient Greek biblical verses,
+                including an interpretability-focused S3BERT variant.
+            </p>
+        </ProjectCard>
+
+        <ProjectCard
+            title="ArgParser"
+            tags={["C++", "Library", "Header-Only"]}
+            url="/argparser"
+        >
+            <p>
+                A simple, header-only C++17 library for parsing command line
+                input, tested on Windows and GNU/Linux. It aims to provide a
+                straightforward interface similar to tools like Cargo.
+            </p>
+        </ProjectCard>
+
+        <ProjectCard
+            title="Tram"
+            tags={["C++", "Build-Tool", "CLI"]}
+            url="/tram"
+        >
+            <p>
+                A compact C/C++ build configuration tool with an integrated
+                dependency manager, aiming to simplify the build process with
+                minimal code and configuration. It is currently under
+                development.
+            </p>
+        </ProjectCard>
+
+        <div class="md:col-span-2 md:flex md:justify-center">
+            <div class="w-full md:max-w-[calc(50%-0.75rem)]">
+                <ProjectCard
+                    title="Okane"
+                    tags={["C++", "Finance-Tool", "CLI"]}
+                    url="/okane"
+                >
+                    <p>
+                        CLI tool for organizing personal finances, supporting
+                        platforms like Windows and GNU/Linux. It allows users to
+                        add incomes, expenses, and view financial summaries.
+                    </p>
+                </ProjectCard>
+            </div>
+        </div>
+    </div>
+</section>
