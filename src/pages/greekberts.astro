@@ -51,8 +51,8 @@ import InlineLink from "../components/InlineLink.astro";
             a 768-dimensional space. During training, verses sharing the same NKV
             identifier (indicating the same underlying verse) form positive pairs,
             while other verses in the batch serve as in-batch negatives. This approach
-            requires no explicit negative pairs - the model learns to pull variants
-            together and push unrelated verses apart. The result is robust to spelling
+            requires no explicit negative pairs. The model learns to pull variants
+            together and push unrelated verses apart, making it robust to spelling
             variation in biblical Greek. The released checkpoint is available on <InlineLink
                 target="_blank"
                 url="https://huggingface.co/Paulanerus/AncientGreekVariantSBERT"
@@ -77,11 +77,11 @@ import InlineLink from "../components/InlineLink.astro";
             acts as teacher, and the student learns to preserve overall
             similarity while dedicating a small subspace to an interpretable
             feature. The gender sub-embedding is trained on scores derived from
-            word-level gender annotations (e.g., masculine-masculine pairs score
-            1.0, masculine-feminine pairs score 0.0). This allows querying not
-            just "how similar are these verses?" but also "how similar is the
-            gendered language?" There is no model release yet, but results can
-            be reproduced from the repository.
+            word-level gender annotations, reflecting gender similarity between
+            sentences: sentences with similar gendered language score higher,
+            while mixed or opposing gendered phrasing scores lower. There is no
+            model release yet, but results can be reproduced from the
+            repository.
         </Paragraph>
 
         <Paragraph headline="Limitations">
