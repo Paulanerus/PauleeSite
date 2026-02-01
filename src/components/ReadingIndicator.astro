@@ -1,0 +1,67 @@
+---
+
+---
+
+<nav class="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 flex-col items-end gap-3 z-50 opacity-0 transition-opacity duration-500" id="reading-indicator">
+</nav>
+
+<script>
+  function initReadingIndicator() {
+    const indicator = document.getElementById('reading-indicator');
+    const headings = document.querySelectorAll('[data-heading]');
+    
+    if (!indicator || headings.length === 0) return;
+    
+    indicator.innerHTML = '';
+    
+    headings.forEach(() => {
+      const line = document.createElement('div');
+      line.className = 'w-4 h-px bg-zinc-300 dark:bg-zinc-600 transition-all duration-150';
+      indicator.appendChild(line);
+    });
+    
+    setTimeout(() => {
+      indicator.classList.remove('opacity-0');
+      indicator.classList.add('opacity-100');
+    }, 200);
+    
+    const lines = indicator.querySelectorAll('div');
+    
+    function updateFromScroll() {
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const maxScroll = documentHeight - viewportHeight;
+      
+      const scrollProgress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+      const totalHeadings = headings.length;
+      let activeIndex = Math.floor(scrollProgress * totalHeadings);
+      
+      activeIndex = Math.max(0, Math.min(totalHeadings - 1, activeIndex));
+      
+      if (scrollTop < 50) {
+        activeIndex = 0;
+      }
+      
+      if (scrollTop >= maxScroll - 10) {
+        activeIndex = totalHeadings - 1;
+      }
+      
+      lines.forEach((line, i) => {
+        if (i === activeIndex) {
+          line.classList.remove('w-4', 'bg-zinc-300', 'dark:bg-zinc-600');
+          line.classList.add('w-6', 'bg-zinc-900', 'dark:bg-zinc-100');
+        } else {
+          line.classList.remove('w-6', 'bg-zinc-900', 'dark:bg-zinc-100');
+          line.classList.add('w-4', 'bg-zinc-300', 'dark:bg-zinc-600');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', updateFromScroll);
+    updateFromScroll();
+  }
+  
+  initReadingIndicator();
+  document.addEventListener('astro:page-load', initReadingIndicator);
+</script>
