@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import LinkIcon from "../components/icons/LinkIcon.astro";
+import ReadingIndicator from "../components/ReadingIndicator.astro";
 
 import { Image } from "astro:assets";
 
@@ -16,6 +17,7 @@ const { caption, url = "", banner, bannerAlt } = Astro.props;
 ---
 
 <BaseLayout title={caption}>
+    <ReadingIndicator />
     <div class="flex flex-col mt-8 md:mt-0">
         <p class="text-4xl md:text-5xl text-center">{caption}</p>
 
