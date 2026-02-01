@@ -2,9 +2,12 @@
 import ProjectLayout from "../layouts/ProjectLayout.astro";
 import Paragraph from "../components/Paragraph.astro";
 import InlineLink from "../components/InlineLink.astro";
+
+import bannerBERTS from "@images/berts.png";
 ---
 
-<ProjectLayout caption="Ancient Greek Variant SBERTs">
+<ProjectLayout caption="Ancient Greek Variant SBERTs" banner={bannerBERTS}
+bannerAlt="Two Greek-Berts characters in togas discuss Bible manuscripts spread across a table with scrolls.">
     <p slot="desc">
         A foundation for deeper understanding of Ancient Greek biblical verses,
         where meaning and variation can be traced with care.
