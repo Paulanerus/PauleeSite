@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    src: ImageMetadata;
+    alt: string;
+    caption?: string;
+}
+
+const { src, alt, caption } = Astro.props;
+---
+
+<figure class="mt-8">
+    <Image
+        src={src}
+        alt={alt}
+        class="w-full rounded-xl border border-black/10"
+    />
+    {
+        caption ? (
+            <figcaption class="mt-2 text-base opacity-80 text-center">
+                {caption}
+            </figcaption>
+        ) : null
+    }
+</figure>
