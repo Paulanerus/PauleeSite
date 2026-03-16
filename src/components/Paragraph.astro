@@ -1,16 +1,18 @@
 ---
 interface Props {
-  headline: string;
+    headline: string;
 }
 
 const { headline } = Astro.props;
-
-const id = headline.toLowerCase().replace(/\s+/g, '-');
 ---
 
 <div>
-  <p id={id} class="text-3xl mb-8 scroll-mt-24" data-heading>{headline}</p>
-  <div class="text-lg text-pretty hyphens-auto">
-    <slot />
-  </div>
+    <p class="scroll-reveal text-3xl mb-8">{headline}</p>
+    <div class="flex flex-col gap-8 text-lg text-pretty hyphens-auto">
+        <slot name="parts">
+            <div class="scroll-reveal">
+                <slot />
+            </div>
+        </slot>
+    </div>
 </div>

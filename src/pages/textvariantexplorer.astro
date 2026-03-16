@@ -2,6 +2,7 @@
 import ProjectLayout from "../layouts/ProjectLayout.astro";
 import Paragraph from "../components/Paragraph.astro";
 import InlineLink from "../components/InlineLink.astro";
+import Figure from "../components/Figure.astro";
 
 import bannerTVE from "@images/manuscripts.png";
 ---
@@ -19,18 +20,100 @@ import bannerTVE from "@images/manuscripts.png";
     </p>
 
     <article slot="article" class="flex flex-col gap-20">
-        <Paragraph headline="Overview"> TODO </Paragraph>
+        <Paragraph headline="Overview">
+            TextVariant Explorer is an application for exploring and comparing
+            text variants in structured corpora. One common use case is textual
+            criticism in theology and manuscript studies, but the same workflow
+            applies wherever many versions of a text need to be compared:
+            multiple editions, parallel translations, or revision histories (for
+            example, Wikipedia). The aim is simple: make differences easier to
+            find, compare, highlight, and discuss, without relying on ad hoc
+            spreadsheets and manual collation. It is designed to support both
+            close reading (inspecting individual readings) and broader
+            exploration (spotting patterns across larger collections).
+        </Paragraph>
 
-        <Paragraph headline="Related Work"> Coming soon. </Paragraph>
+        <Paragraph headline="Motivation">
+            Manual textual comparison is time-consuming and repetitive,
+            especially once the number of witnesses grows beyond a small working
+            set. Variation is evidence, but much of the work can turn into
+            mechanics: locating differences, aligning readings, and keeping
+            recurring patterns in view. TextVariant Explorer is meant to reduce
+            that friction so attention can stay on interpretation.
+        </Paragraph>
 
-        <Paragraph headline="Documentation">
-            The documentation is available on Read the Docs. You can access it
-            <InlineLink
+        <Paragraph headline="Search and Insights">
+            Exploration in TextVariant Explorer centers on two complementary
+            modes: searching and close comparison. Search is built to support
+            research questions, ranging from simple keyword queries to exact
+            phrase search, boolean combinations (`AND`/`OR`), and field-based
+            filters. The insights views support side-by-side comparison of
+            selected readings, show differences at a glance (additions and
+            omissions), and use plugin-driven highlighting so recurring patterns
+            are easier to spot and communicate. For more examples and additional
+            features, see the <InlineLink
                 target="_blank"
-                url="https://textvariantexplorer.readthedocs.io/en/latest/"
-                text="here"
+                url="https://textvariantexplorer.readthedocs.io/en/latest/content/usage.html#exploration-of-data"
+                text="Exploration of Data"
+            /> section on Read the Docs.
+
+            <!--
+            <Figure
+                src={tveInsightsDiffPlaceholder}
+                alt="Illustration of an insights diff view comparing multiple readings"
+                caption="Insights diff view (illustration placeholder)."
+            />
+            -->
+        </Paragraph>
+
+        <Paragraph headline="Variant Search">
+            Many corpora contain variation that is best treated as a single
+            concept: spelling variants, abbreviations, translations, or
+            inflected forms. TextVariant Explorer supports a configurable
+            variant search that maps many surface forms to a shared label. For
+            example, a dataset can treat "Amerika", "America", "USA", "US", and
+            "United States" as variants of the same concept, so a single search
+            retrieves all of them. For a field such as `name`, a query can
+            target the label (for example, `@name:Amerika`) instead of
+            enumerating every spelling and abbreviation.
+
+            <!--
+            <Figure
+                src={tveSearchPlaceholder}
+                alt="Illustration of a search view with a variant label query"
+                caption="Search view (illustration placeholder), including label-based variant search."
+            />
+            -->
+        </Paragraph>
+
+        <Paragraph headline="Semantic Search">
+            Alongside keyword search, TextVariant Explorer can use embedding
+            models to support semantic search. In practice, this means the tool
+            can retrieve passages that are similar in meaning even when the
+            surface wording differs. Several embedding models are supported
+            inside the application, suited to different languages and research
+            needs. The Ancient Greek Variant SBERT model from related research
+            is supported as well; see <InlineLink
+                url="/greekberts"
+                text="Ancient Greek Variant SBERTs"
             />.
         </Paragraph>
+
+        <Paragraph headline="Plugins">
+            TextVariant Explorer is built to be extensible. Plugins can add
+            tagging logic, UI extensions, and additional views so the tool can
+            be adapted to the needs of a specific corpus, edition, or research
+            workflow. See <InlineLink
+                url="https://textvariantexplorer.readthedocs.io/en/latest/content/dev.html"
+                text="Development"
+            />.
+        </Paragraph>
+
+        <Paragraph headline="Example: New Testament Textual Criticism">
+            Coming Soon.
+        </Paragraph>
+
+        <Paragraph headline="Related Work"> Coming soon. </Paragraph>
 
         <Paragraph headline="Citation">
             If you use TextExplorer in your research, please cite it using the
