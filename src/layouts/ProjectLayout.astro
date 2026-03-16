@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import LinkIcon from "../components/icons/LinkIcon.astro";
-import ReadingIndicator from "../components/ReadingIndicator.astro";
 
 import { Image } from "astro:assets";
 
@@ -17,13 +16,12 @@ const { caption, url = "", banner, bannerAlt } = Astro.props;
 ---
 
 <BaseLayout title={caption}>
-    <ReadingIndicator />
-    <div class="flex flex-col mt-8 md:mt-0">
-        <p class="text-4xl md:text-5xl text-center">{caption}</p>
+    <div class="flex flex-col mt-8 md:mt-0 mb-22">
+        <p class="project-reveal text-4xl md:text-5xl text-center">{caption}</p>
 
         {
             banner && bannerAlt && (
-                <div class="px-6 md:px-0">
+                <div class="project-reveal px-6 md:px-0">
                     <Image
                         src={banner}
                         width="800"
@@ -35,7 +33,7 @@ const { caption, url = "", banner, bannerAlt } = Astro.props;
         }
 
         <section
-            class="mt-4 opacity-75 text-center text-pretty text-lg sm:text-xl leading-relaxed px-4 sm:px-0 mx-auto max-w-prose sm:max-w-2xl"
+            class="project-reveal mt-4 opacity-75 text-center text-pretty text-lg sm:text-xl leading-relaxed px-4 sm:px-0 mx-auto max-w-prose sm:max-w-2xl"
         >
             <slot name="desc" />
         </section>
@@ -45,13 +43,91 @@ const { caption, url = "", banner, bannerAlt } = Astro.props;
         </section>
         {
             url && (
-                <div class="rounded-md px-3 py-2 mx-auto my-14 bg-primary-dark dark:bg-primary-light text-primary-light dark:text-primary-dark flex items-center space-x-2 md:hover:-translate-y-1 transition ease-in-out duration-200">
-                    <a href={url} target="_blank">
-                        Visit on GitHub
-                    </a>
-                    <LinkIcon />
+                <div class="project-reveal mx-auto my-14 w-fit">
+                    <div class="rounded-md px-3 py-2 bg-primary-dark dark:bg-primary-light text-primary-light dark:text-primary-dark flex items-center space-x-2 md:hover:-translate-y-1 transition ease-in-out duration-200">
+                        <a href={url} target="_blank">
+                            Visit on GitHub
+                        </a>
+                        <LinkIcon />
+                    </div>
                 </div>
             )
         }
     </div>
+
+    <noscript>
+        <style>
+            .project-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
+
+    <style is:global>
+        .project-reveal {
+            opacity: 0;
+            transform: translate3d(0, 16px, 0);
+            transition:
+                opacity 300ms ease,
+                transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .project-reveal.is-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .project-reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
+
+    <script>
+        let observer;
+
+        function initProjectReveal() {
+            observer?.disconnect();
+
+            const elements = document.querySelectorAll(".project-reveal");
+
+            if (elements.length === 0) return;
+
+            if (
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+                !("IntersectionObserver" in window)
+            ) {
+                elements.forEach((element) =>
+                    element.classList.add("is-visible"),
+                );
+                return;
+            }
+
+            observer = new IntersectionObserver(
+                (entries, currentObserver) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add("is-visible");
+                        currentObserver.unobserve(entry.target);
+                    });
+                },
+                {
+                    threshold: 0,
+                    rootMargin: "0px",
+                },
+            );
+
+            elements.forEach((element) => {
+                element.classList.remove("is-visible");
+                observer.observe(element);
+            });
+        }
+
+        initProjectReveal();
+        document.addEventListener("astro:page-load", initProjectReveal);
+    </script>
 </BaseLayout>
