@@ -7,10 +7,10 @@ const { headline } = Astro.props;
 ---
 
 <div>
-    <p class="project-reveal text-3xl mb-8">{headline}</p>
+    <p class="scroll-reveal text-3xl mb-8">{headline}</p>
     <div class="flex flex-col gap-8 text-lg text-pretty hyphens-auto">
         <slot name="parts">
-            <div class="project-reveal">
+            <div class="scroll-reveal">
                 <slot />
             </div>
         </slot>
