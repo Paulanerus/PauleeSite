@@ -17,7 +17,7 @@ const { caption, url = "", banner, bannerAlt } = Astro.props;
 ---
 
 <BaseLayout title={caption}>
-    <div class="flex flex-col mt-8 md:mt-0 mb-22">
+    <div class="flex flex-col mt-8 md:mt-0">
         <p class="scroll-reveal text-4xl md:text-5xl text-center">{caption}</p>
 
         {
@@ -54,6 +54,18 @@ const { caption, url = "", banner, bannerAlt } = Astro.props;
                 </div>
             )
         }
+        <slot name="footer" />
+        <footer
+            id="project-footer"
+            class="flex flex-wrap items-center justify-between gap-4 w-[min(64rem,calc(100%-3rem))] mt-4 mx-auto pt-4 border-t border-[#8884] text-[0.875rem]"
+        >
+            <span class="opacity-65">{caption}</span>
+            <a
+                href="/"
+                class="inline-flex items-center gap-4 min-h-11 hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-current focus-visible:outline-offset-4"
+                >Back to projects <span aria-hidden="true">↗</span></a
+            >
+        </footer>
     </div>
     <ScrollReveal />
 </BaseLayout>
